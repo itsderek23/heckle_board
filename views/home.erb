@@ -1,0 +1,46 @@
+<h3>Just how awesome is the presenter?</h3>
+
+<form action="say" method="post" id="say" class="form-inline">
+  <fieldset>
+    <input type="text" name="quote">
+    <button type="submit" class="btn btn-success">Submit</button>
+    <span class="help-block">Example: I thought I was at a TED Conference!</span>
+  </fieldset>
+</form>
+
+<h3>This awesome!</h3>
+
+<div id="quote_boxes"></div>
+
+<script>
+  var online = null;
+  $().ready(function(){
+    $('input[name=quote]').focus();
+    var pusher = new Pusher('<%=Pusher.key%>');
+    // public channel
+    var channel = pusher.subscribe('<%=PUSHER_CHANNEL%>');
+    channel.bind('quote', function(data) {
+      $('#quote_boxes').prepend($('<span>'+data.quote+'</span>'));
+    });
+    $('#say').submit(function(){
+      $.post('say', $(this).serialize(), function(data){
+        $('input[name=quote]').val(null);
+      });
+      return false;
+    });
+    // presence channel 
+    presenceChannel = pusher.subscribe('<%=PUSHER_PRESENCE_CHANNEL%>');
+    presenceChannel.bind('pusher:subscription_succeeded', function(members) {
+      online = members.count;
+      $('#online span').text(online)
+    });
+    presenceChannel.bind('pusher:member_added', function(member) {
+      online += 1;
+      $('#online span').text(online)
+    });
+    presenceChannel.bind('pusher:member_removed', function(member) {
+      online -= 1;
+      $('#online span').text(online)
+    });
+  }); // ready
+</script>

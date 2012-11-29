@@ -1,0 +1,39 @@
+.navbar .nav > li {
+    margin: 8px 0px;
+	padding: 2px 15px 2px 15px;;
+	background: blue;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.navbar .nav > li > span {
+   font-weight: bold;
+   color: yellow;   
+}
+
+form#say {
+	border-bottom: 1px solid #eee;
+}
+
+form#say input[type=text]{
+	width: 400px;
+}
+
+#quote_boxes > span {
+	background-color: #EEE;
+	-webkit-border-radius: 6px;
+	padding: 10px 20px;
+	font-size: 18px;
+	font-weight: 200;
+	line-height: 30px;
+	margin: 20px 20px 20px 0;
+	max-width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+span.help-block {
+	margin-top: 5px;
+	color: gray;
+	font-size: 12px;
+}
